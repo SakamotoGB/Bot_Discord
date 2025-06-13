@@ -32,8 +32,8 @@ async def delta(ctx:commands.Context):
     await ctx.reply(f"☝️🤓, {id_Delta.mention}")
 
 
-tempo_horas = 18
-tempo_mins = 18
+tempo_horas = random.randint(0, 23)
+tempo_mins = random.randint(0, 59)
 ult_dia = 0
 
 @tasks.loop(minutes=1)
@@ -41,7 +41,7 @@ async def bomdia():
     global tempo_horas, tempo_mins, ult_dia
     id_membro = bot.get_user(704238407274201151) #sakas
     agora = datetime.datetime.now(pytz.timezone("America/Sao_Paulo"))
-    
+    msg = ""
     canal = bot.get_channel(1277024565788413999) #geral
 
     embed = discord.Embed(
@@ -55,14 +55,14 @@ async def bomdia():
         if tempo_horas == agora.hour and tempo_mins == agora.minute:
             if tempo_horas == 6 and tempo_mins == 30:
                 embed.add_field(name="ACORDEI NO HORARIO", value="finalmente chegou o dia")
-                await canal.send("teste everyone")
+                msg = "@everyone"
 
-            await canal.send(embed=embed)
-            await canal.send(id_membro.mention)
-            
+            await canal.send(f"{msg} {id_membro.mention}", embed=embed)
+                        
             tempo_horas = random.randint(0, 23)
-            tempo_mins = random.randrange(0, 45, 15)
+            tempo_mins = random.randint(0, 59)
             ult_dia = agora.day
             embed.remove_field(index=0)
+            msg = ""
              
 bot.run("")
