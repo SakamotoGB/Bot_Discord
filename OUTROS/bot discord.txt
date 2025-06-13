@@ -6,6 +6,8 @@ IDEIAS
     mandar o gif das 6:30, uma vez por dia, em horarios aleatórios (marcar todo mundo se for 6h30)
 
     mandar uma img de "não ironicamente" quando reagir as msg do Delta
+	-funcionalidade adicionada
+	-montar uma embed bonitinha pra isso
 
     Mandar o Jhon tomar no cu
     ta feito mas da pra melhorar essa peste
@@ -16,4 +18,6 @@ IDEIAS
 
     gacha com foto do pé do Delta
 
+
+commit 4 "adionei o evento de reação nerd, deletei o antigo e botei uma lista no !jhon"
     
