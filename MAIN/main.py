@@ -3,6 +3,14 @@ from discord.ext import commands, tasks
 import datetime
 import pytz
 import random
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+ID_Jhon = int(os.getenv("ID_Jhon"))
+ID_Sakas = int(os.getenv("ID_Sakas"))
+ID_Chat_Geral = int(os.getenv("ID_Chat_Geral"))
+Token_Bot = os.getenv("Token_Bot")
 
 intents = discord.Intents.all()
 bot = commands.Bot("!", intents=intents)
@@ -12,22 +20,24 @@ bot = commands.Bot("!", intents=intents)
 async def on_ready():
     bomdia.start()
     print("BOT ligado")
-
+    
 
 @bot.command() #comando pra xingar um membro
 async def jhon(ctx:commands.Context):
-    id_Jhon = ctx.guild.get_member(1359543956387397705)
+    #await ctx.message("AAAAAAAAAAAAAAAAAA")
+    Jhon = ctx.guild.get_member(ID_Jhon)
     love = ctx.message.author.mention
     xingo = ["Vai tomar no cu", "Vai se foder", "Incel ->", "Patético ->", "Estrume ->", "Lixo ->", "Vadia ->",
              f"🏳️‍🌈  {love} QUER DAR PRO"]
     embed = discord.Embed(
         title= "AVISO DE SUMA IMPORTANCIA",
-        description= f"{random.choice(xingo)} {id_Jhon.mention}",
+        description= f"{random.choice(xingo)} {Jhon.mention}",
         color= 0x1DB954
         # url=
     )
-    embed.set_image(url=id_Jhon.avatar.url)
+    embed.set_image(url=Jhon.avatar.url)
     await ctx.reply(embed=embed)
+    
        
 
 @bot.event #evento para adicionar msg ao reagir com 🤓 gif url: "https://c.tenor.com/pUNC06ehYBsAAAAd/tenor.gif" 
@@ -45,17 +55,17 @@ async def on_reaction_add(reaction, user):
         
 
 #variaveis da task bomdia
-agora = datetime.datetime.now(pytz.timezone("America/Sao_Paulo"))
 tempo_horas = random.randint(0, 23)
 tempo_mins = random.randint(0, 59)
-ult_dia = agora.day
+ult_dia = 16
 
 @tasks.loop(minutes=1) #task para mandar bomdia 1x por dia
 async def bomdia():
-    global tempo_horas, tempo_mins, ult_dia, agora
-    id_membro = bot.get_user(704238407274201151) #sakas
+    global tempo_horas, tempo_mins, ult_dia
+    agora = datetime.datetime.now(pytz.timezone("America/Sao_Paulo"))
+    id_membro = bot.get_user(ID_Sakas) #sakas
     msg = ""
-    canal = bot.get_channel(1277024565788413999) #geral
+    canal = bot.get_channel(ID_Chat_Geral) #geral
 
     embed = discord.Embed(
         title="BOM DIA",
@@ -79,11 +89,4 @@ async def bomdia():
             msg = ""
 
 
-@bot.command()
-async def velha(ctx):
-    await ctx.reply("JOGO DA VELHA")
-    
-    await ctx.send("")
-
-
-bot.run("")
+bot.run(Token_Bot)
