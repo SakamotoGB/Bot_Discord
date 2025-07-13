@@ -5,9 +5,9 @@ import pytz
 import random
 import os
 from dotenv import load_dotenv
+from comandosBOT import *
 
 load_dotenv()
-ID_Jhon = int(os.getenv("ID_Jhon"))
 ID_Sakas = int(os.getenv("ID_Sakas"))
 ID_Chat_Geral = int(os.getenv("ID_Chat_Geral"))
 Token_Bot = os.getenv("Token_Bot")
@@ -16,37 +16,61 @@ intents = discord.Intents.all()
 bot = commands.Bot("!", intents=intents)
 
 
-@bot.event #dar o sinal de inicializacao
+@bot.event #inicializar tasks / msg de inicializacao
 async def on_ready():
     bomdia.start()
     print("BOT ligado")
     
 
-@bot.command() #comando pra xingar um membro
-async def jhon(ctx:commands.Context):
-    #await ctx.message("AAAAAAAAAAAAAAAAAA")
-    Jhon = ctx.guild.get_member(ID_Jhon)
-    love = ctx.message.author.mention
-    xingo = ["Vai tomar no cu", "Vai se foder", "Incel ->", "Patético ->", "Estrume ->", "Lixo ->", "Vadia ->",
-             f"🏳️‍🌈  {love} QUER DAR PRO"]
-    embed = discord.Embed(
-        title= "AVISO DE SUMA IMPORTANCIA",
-        description= f"{random.choice(xingo)} {Jhon.mention}",
-        color= 0x1DB954
-        # url=
-    )
-    embed.set_image(url=Jhon.avatar.url)
-    await ctx.reply(embed=embed)
-    
-       
+#funcoes de commando do comandosBOT.py
+@bot.command()
+async def comandos(context:commands.Context):
+    await context.reply(help_msg)
 
-@bot.event #evento para adicionar msg ao reagir com 🤓 gif url: "https://c.tenor.com/pUNC06ehYBsAAAAd/tenor.gif" 
+@bot.command()
+async def jhon(context:commands.Context):
+    command_jhon (context)   
+    await context.reply(embed=embed_jhon)
+
+@bot.command()
+async def risada(context:commands.context):
+    command_risada(context)
+    await context.reply(embed=embed_risada)
+
+@bot.command()
+async def saka(context:commands.context):
+    command_saka(context)
+    await context.reply(embed=embed_saka)    
+
+@bot.command()
+async def primi(context:commands.context):
+    command_primi(context)
+    await context.reply(embed=embed_primi)
+
+@bot.command()
+async def thi(context:commands.context):
+    command_thi(context)
+    await context.reply(embed=embed_thi)
+       
+@bot.command()
+async def delta(context:commands.context):
+    command_delta(context)
+    await context.reply(embed=embed_delta)
+
+@bot.command()
+async def watso(context:commands.context):
+    command_watso(context)
+    await context.reply(embed=embed_watso)
+
+
+#outras funcoes
+@bot.event #evento ao reagir com 🤓 
 async def on_reaction_add(reaction, user):
     if reaction.emoji == "🤓":
-        gifs = ["https://c.tenor.com/pUNC06ehYBsAAAAd/tenor.gif", "https://c.tenor.com/vIIrCJvC9KMAAAAd/tenor.gif",
-                 "https://c.tenor.com/s3sg_NM0VOUAAAAd/tenor.gif", "https://c.tenor.com/NUzXmsZeSy8AAAAd/tenor.gif"]
+        gifs = ["https://c.tenor.com/pUNC06ehYBsAAAAd/tenor.gif", "https://c.tenor.com/vIIrCJvC9KMAAAAd/tenor.gif", "https://c.tenor.com/s3sg_NM0VOUAAAAd/tenor.gif", "https://c.tenor.com/NUzXmsZeSy8AAAAd/tenor.gif"]
+
         embed = discord.Embed(
-            title= "AVISO DE SUMA IMPORTANCIA",
+            title= "NERDOLA",
             description= f"{user.mention} acha que \n {reaction.message.author.display_name} é exatamente assim:",
             color=14984215
         )
