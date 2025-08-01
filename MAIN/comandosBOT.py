@@ -21,21 +21,24 @@ def command_jhon(ctx):
     Jhon = ctx.guild.get_member(ID_Jhon)
     love = ctx.message.author.mention
     xingo = ["Vai tomar no cu", "Vai se foder", "Incel ->", "Patético ->", "Estrume ->", "Lixo ->", "Vadia ->",
-             f"🏳️‍🌈  {love} QUER DAR PRO"]
+             f"🏳️‍🌈  {love} QUER DAR PRO", f"🏳️‍🌈 {Jhon.mention} QUER DAR PRO {love}"]
+    escolha = random.choice(xingo)
     
     embed_jhon.set_image(url=Jhon.avatar.url)
     embed_jhon.title= "Xingamento Merecido"
-    embed_jhon.description= f"{random.choice(xingo)} {Jhon.mention}"
+    embed_jhon.description= f"{escolha} {Jhon.mention}"
     embed_jhon.color= corEMB
+    if escolha == xingo[8]:
+        embed_jhon.description= f"{escolha}"
     
 
 embed_risada = discord.Embed()
 def command_risada(ctx):
     risada = ctx.guild.get_member(ID_Risada)
-    falas = ["Viciado em Romance", "Maldito Romântico", "Mago dos Animes", "Hater de Harém", "Oráculo do E7"]
+    falas = ["Viciado em Romance", "Maldito Romântico", "Mago dos Animes", "Hater de Harém", "Oráculo do E7", "Emilia SIMP"]
 
     embed_risada.set_image(url=risada.avatar.url)
-    embed_risada.title= f"La vem o {random.choice(falas)}"
+    embed_risada.title= f"La vem o {falas[5]}"
     embed_risada.description= f"vulgo {risada.mention}"
     embed_risada.color= corEMB
 

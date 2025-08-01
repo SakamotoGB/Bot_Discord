@@ -16,8 +16,9 @@ intents = discord.Intents.all()
 bot = commands.Bot("!", intents=intents)
 
 
-@bot.event #inicializar tasks / msg de inicializacao
+@bot.event #sincronizar slash comands / inicializar tasks / msg de inicializacao
 async def on_ready():
+    await bot.tree.sync()
     bomdia.start()
     print("BOT ligado")
     
@@ -112,5 +113,16 @@ async def bomdia():
             embed.remove_field(index=0)
             msg = ""
 
+
+@bot.tree.command()
+async def betinha(interact:discord.Interaction, membro:discord.Member):
+    citar = membro.mention
+    imagem = discord.File("OUTROS/betinha.png", "beta.png")
+    embed_beta = discord.Embed()
+    embed_beta.set_image(url="attachment://beta.png")
+    embed_beta.title= "BETINHA"
+    embed_beta.description= f"SOBRA NADA PRO {membro.mention}"
+    embed_beta.set_footer(text="It's Over, Brutal...")
+    await interact.response.send_message(citar, embed=embed_beta, file=imagem)
 
 bot.run(Token_Bot)
