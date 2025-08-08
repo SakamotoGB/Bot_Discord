@@ -38,7 +38,7 @@ def command_risada(ctx):
     falas = ["Viciado em Romance", "Maldito Romântico", "Mago dos Animes", "Hater de Harém", "Oráculo do E7", "Emilia SIMP"]
 
     embed_risada.set_image(url=risada.avatar.url)
-    embed_risada.title= f"La vem o {falas[5]}"
+    embed_risada.title= f"La vem o {random.choice(falas)}"
     embed_risada.description= f"vulgo {risada.mention}"
     embed_risada.color= corEMB
 

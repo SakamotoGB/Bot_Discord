@@ -82,11 +82,12 @@ async def on_reaction_add(reaction, user):
 #variaveis da task bomdia
 tempo_horas = random.randint(0, 23)
 tempo_mins = random.randint(0, 59)
-ult_dia = 16
+ult_dia = 1
+tempo_excluido = [0000]
 
 @tasks.loop(minutes=1) #task para mandar bomdia 1x por dia
 async def bomdia():
-    global tempo_horas, tempo_mins, ult_dia
+    global tempo_horas, tempo_mins, ult_dia, tempo_excluido
     agora = datetime.datetime.now(pytz.timezone("America/Sao_Paulo"))
     id_membro = bot.get_user(ID_Sakas) #sakas
     msg = ""
@@ -106,12 +107,21 @@ async def bomdia():
                 msg = "@everyone"
 
             await canal.send(f"{msg} {id_membro.mention}", embed=embed)
-                        
-            tempo_horas = random.randint(0, 23)
-            tempo_mins = random.randint(0, 59)
+
+            tempo_excluido.append((tempo_horas*100)+(tempo_mins))
+            n = 0
+            while  n < len(tempo_excluido):   
+                if(tempo_horas*100)+(tempo_mins) == tempo_excluido[n]:
+                    tempo_horas = random.randint(0, 23)
+                    tempo_mins = random.randint(0, 59)
+                    n = -1          
+                n = n+1
+                
+            
             ult_dia = agora.day
             embed.remove_field(index=0)
             msg = ""
+            print(f"{tempo_excluido[len(tempo_excluido) - 1]:0{4}}")
 
 
 @bot.tree.command()
