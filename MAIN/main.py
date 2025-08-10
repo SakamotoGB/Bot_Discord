@@ -6,6 +6,7 @@ import random
 import os
 from dotenv import load_dotenv
 from comandosBOT import *
+import json
 
 load_dotenv()
 ID_Sakas = int(os.getenv("ID_Sakas"))
@@ -83,7 +84,8 @@ async def on_reaction_add(reaction, user):
 tempo_horas = random.randint(0, 23)
 tempo_mins = random.randint(0, 59)
 ult_dia = 1
-tempo_excluido = [0000]
+with open("OUTROS/horarios.json", "r") as arq:
+    tempo_excluido = json.load(arq)
 
 @tasks.loop(minutes=1) #task para mandar bomdia 1x por dia
 async def bomdia():
@@ -109,6 +111,8 @@ async def bomdia():
             await canal.send(f"{msg} {id_membro.mention}", embed=embed)
 
             tempo_excluido.append((tempo_horas*100)+(tempo_mins))
+            with open("OUTROS/horarios.json", "w") as arq:
+                json.dump(tempo_excluido, arq)
             n = 0
             while  n < len(tempo_excluido):   
                 if(tempo_horas*100)+(tempo_mins) == tempo_excluido[n]:
@@ -121,7 +125,7 @@ async def bomdia():
             ult_dia = agora.day
             embed.remove_field(index=0)
             msg = ""
-            print(f"{tempo_excluido[len(tempo_excluido) - 1]:0{4}}")
+            
 
 
 @bot.tree.command()
