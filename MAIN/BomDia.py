@@ -1,8 +1,7 @@
 import discord
 import random
 import json
-import datetime
-from discord.ext import commands
+from datetime import datetime
 import os
 import pytz
 from dotenv import load_dotenv
