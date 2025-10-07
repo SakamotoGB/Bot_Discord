@@ -62,7 +62,8 @@ async def bom_dia_task(bot, lista_tempo, lista_tempo_exc,estado_tempo):
             
     if len(delta) < 8: 
         delta = ("0" + delta).replace(":", "h")
-        timming = f"Só {delta[0:5]} {atrasado_adiantado}"
+        
+    timming = f"Só {delta[0:5]} {atrasado_adiantado}"
 
     embed.set_footer(text= f"Chance: {chance:.2f}% || Days: {len(lista_tempo_exc)}/{lista_total}\nTimming: {timming}")
     await canal.send(f"{msg} {id_membro.mention}", embed=embed)
