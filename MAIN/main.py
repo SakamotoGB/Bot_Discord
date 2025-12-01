@@ -22,6 +22,50 @@ async def on_ready():
     
 
 #funcoes de commando do comandosBOT.py
+with open("OUTROS/bom_dia_points.json", "r") as arq:
+    bom_dia_points = json.load(arq)
+
+@bot.command()
+async def lista(context:commands.context, lista = bom_dia_points):
+    texto = ""
+    for id, pontos in lista.items():
+        membro = context.guild.get_member(int(id))
+        nome = membro.nick
+        if nome is None:
+            nome = membro.global_name
+        texto = texto + (str(nome) + ": " + str(pontos) + " pts \n")
+    await context.reply(texto)
+
+@bot.command()
+async def dia(context: commands.Context, lista = bom_dia_points):
+    view = discord.ui.View()
+    botao = discord.ui.Button(label= "BOM DIA!", style= discord.ButtonStyle.green)
+    view.add_item(botao)
+    cont = []
+
+    async def resposta(interact: discord.Interaction, botao= botao, view = view, cont= cont):
+        if len(cont) > 0:
+            return
+        cont.append(interact.user)
+        membro = interact.user
+        botao.disabled = True
+        botao.style = discord.ButtonStyle.red
+        await interact.message.edit(view= view)
+        await interact.response.send_message("Bom dia, " + membro.mention)
+        if lista.get(str(membro.id)) is None:
+            lista[str(membro.id)] = 1
+            return
+        lista[str(membro.id)] = lista[str(membro.id)] + 1
+    
+    botao.callback = resposta
+    await context.reply(view=view)
+    
+
+@bot.command()
+async def add_point(context:commands.context, lista = bom_dia_points):
+    await context.reply("Ponto Adicionado")
+
+
 @bot.command()
 async def comandos(context:commands.Context):
     await context.reply(help_msg)
