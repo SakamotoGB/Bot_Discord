@@ -14,10 +14,12 @@ Uma vez ao dia, manda uma mensagem de **Bom Dia** com o **horário atual**.
 Conta com alguns outros comandos, como:
 ### Reação Nerd (🤓)
 Responde a mensagem original, ao reagirem com 🤓.
+
 ![Imagem da Task](/DOC/Nerd_ex.png "NERD em Execução")
 
 ### Betinha
 Slash Command, que permite marcar um usuário.
+
 ![Imagem da Task](/DOC/Betinha_ex.png "BETINHA em Execução")
 
 
