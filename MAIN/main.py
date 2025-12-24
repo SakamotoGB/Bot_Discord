@@ -7,8 +7,12 @@ from comandosBOT import *
 from BomDia import bom_dia_task
 import json
 
+from datetime import datetime
+import pytz
+
 load_dotenv()
 Token_Bot = os.getenv("Token_Bot")
+ID_Chat_Geral = int(os.getenv("ID_Chat_Geral"))
 
 intents = discord.Intents.all()
 bot = commands.Bot("!", intents=intents)
@@ -138,7 +142,31 @@ estado_tempo = {"tempo": random.choice(lista_tempo), "ult_dia": 30}
 async def bom_dia():
     await bom_dia_task(bot, lista_tempo, lista_tempo_exc, estado_tempo)
     
-            
+    agora = datetime.now(pytz.timezone("America/Sao_Paulo"))
+    canal = bot.get_channel(ID_Chat_Geral) #geral
+
+    if agora.day != 25:
+        return
+    if agora.hour != 0:
+        return 
+    if agora.minute != 0:
+        return 
+    
+    
+
+    embed = discord.Embed(
+        title="FELIZ NATAL",
+        description=("HORA DE ENCHER A BOCA COM O PERU"),
+        color= 12852794
+    )
+    embed.set_image(url= "https://c.tenor.com/AHddBZpCxRYAAAAd/tenor.gif")
+
+    await canal.send("@everyone", embed=embed)
+    
+
+
+
+
 
 @bot.tree.command()
 async def betinha(interact:discord.Interaction, membro:discord.Member):
